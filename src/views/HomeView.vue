@@ -1,10 +1,9 @@
 <script setup lang="ts">
+import TheCanvas from '@/components/TheCanvas.vue'
 </script>
 
 <template>
-  <main>
-    <div>
-      hello world
-    </div>
-  </main>
+  <div class="h-screen w-screen">
+    <TheCanvas />
+  </div>
 </template>
