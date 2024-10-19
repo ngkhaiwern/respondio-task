@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import TheButton from '@/components/TheButton.vue'
+import TheDialog from '@/components/TheDialog.vue'
+import { VueFlow } from '@vue-flow/core'
 import { useAutoReplyBotStore } from '@/stores/autoReplyBot'
 
 const { nodes, edges } = useAutoReplyBotStore()
@@ -6,6 +9,7 @@ const { nodes, edges } = useAutoReplyBotStore()
 
 <template>
   <VueFlow :nodes="nodes" :edges="edges"> </VueFlow>
+  <TheDialog></TheDialog>
 </template>
 
 <style>
