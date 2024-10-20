@@ -3,12 +3,17 @@ import TheButton from '@/components/TheButton.vue'
 import TheDialog from '@/components/TheDialog.vue'
 import { VueFlow } from '@vue-flow/core'
 import { useAutoReplyBotStore } from '@/stores/autoReplyBot'
+import CustomNode from '@/components/CustomNode.vue'
 
 const { nodes, edges } = useAutoReplyBotStore()
 </script>
 
 <template>
-  <VueFlow :nodes="nodes" :edges="edges"> </VueFlow>
+  <VueFlow :nodes="nodes" :edges="edges">
+    <template #node-custom="customNodeProps">
+      <CustomNode v-bind="customNodeProps" />
+    </template>
+  </VueFlow>
   <TheDialog></TheDialog>
 </template>
 

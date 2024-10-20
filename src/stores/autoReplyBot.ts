@@ -31,10 +31,11 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
       .filter(node => node.parentId === -1)
       .map(node => ({
         id: node.id.toString(),
-        type: 'input',
+        type: 'custom',
         position: { x: 250, y: 50 },
         data: {
-          label: 'initial',
+          name: 'Trigger',
+          description: 'Conversation Opened',
           ...node,
         },
       }))
@@ -57,6 +58,7 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
                 x: positionX,
                 y: currNode.position.y + 100,
               },
+              type: 'custom',
               data: {
                 label: childNode.name,
                 ...childNode,
