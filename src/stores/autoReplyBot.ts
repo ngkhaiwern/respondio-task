@@ -5,7 +5,8 @@ import { useVueFlow } from '@vue-flow/core'
 import data from '@/assets/data/data.json'
 
 export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
-  const { fitView, onInit, addNodes, addEdges } = useVueFlow()
+  const { fitView, onInit, addNodes, addEdges, findNode, onNodesInitialized } =
+    useVueFlow()
 
   const nodes = ref<Node[]>([])
   const edges = ref<Edge[]>([])
@@ -79,9 +80,11 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
   })
 
   return {
+    onNodesInitialized,
     nodes,
     edges,
     addNodes,
     addEdges,
+    findNode,
   }
 })

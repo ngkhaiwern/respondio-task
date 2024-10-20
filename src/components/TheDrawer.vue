@@ -10,43 +10,45 @@ import {
   DialogTrigger,
 } from 'reka-ui'
 import { useAutoReplyBotStore } from '@/stores/autoReplyBot'
+import { useRoute, useRouter } from 'vue-router'
 
-const title = ref('')
-const description = ref('')
-const nodeType = ref('')
+const { findNode } = useAutoReplyBotStore()
 
-const isSubmitAllowed = computed(() => {
-  return title.value && description.value && nodeType.value
+const route = useRoute()
+const router = useRouter()
+
+const node = computed(() => {
+  if (typeof route.params.id !== 'string') return
+  return findNode(route.params.id)
 })
 
-const { addNodes } = useAutoReplyBotStore()
-
 const createNode = () => {
-  console.log('create node')
-  addNodes([
-    {
-      id: Date.now().toString(),
-      position: { x: 500, y: 100 },
-      data: {
-        label: 'initial',
-      },
-    },
-  ])
-  title.value = ''
-  description.value = ''
-  nodeType.value = ''
+  router.push({
+    path: '/',
+  })
+}
+
+function closeDrawer() {
+  router.push({
+    path: '/',
+  })
 }
 </script>
 
 <template>
-  <DialogRoot>
+  <DialogRoot :modal="false">
     <DialogPortal>
       <DialogOverlay class="fixed inset-0 z-30" />
       <DialogContent
         class="fixed right-0 top-0 z-50 h-full w-2/5 min-w-72 bg-white p-8 shadow-lg"
+        @escape-key-down="
+          event => {
+            event.preventDefault()
+            closeDrawer()
+          }
+        "
         @interact-outside="
           event => {
-            const target = event.target as HTMLElement
             return event.preventDefault()
           }
         "
@@ -54,7 +56,8 @@ const createNode = () => {
         <DialogTitle class="m-0 mb-8 text-[17px] font-semibold">
           Edit Node
         </DialogTitle>
-        <fieldset class="mb-[15px] flex items-center gap-5">
+        <div>computed{{ node }}</div>
+        <!-- <fieldset class="mb-[15px] flex items-center gap-5">
           <label class="text-grass11 w-[90px] text-right text-sm" for="title">
             Title
           </label>
@@ -95,12 +98,11 @@ const createNode = () => {
             <option value="addComment">Add Comments</option>
             <option value="businessHours">Business Hours</option>
           </select>
-        </fieldset>
+        </fieldset> -->
         <div class="mt-[25px] flex justify-end">
           <DialogClose as-child>
             <button
-              @click="createNode"
-              :disabled="!isSubmitAllowed"
+              @click="closeDrawer"
               class="bg-green4 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-lg px-[15px] text-sm font-semibold leading-none focus:shadow-[0_0_0_2px] focus:outline-none disabled:text-gray-400"
             >
               Complete
