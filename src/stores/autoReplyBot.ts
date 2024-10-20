@@ -1,12 +1,22 @@
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 import type { Node, Edge } from '@vue-flow/core'
 import { useVueFlow } from '@vue-flow/core'
 import data from '@/assets/data/data.json'
+import { useRoute } from 'vue-router'
 
 export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
-  const { fitView, onInit, addNodes, addEdges, findNode, onNodesInitialized } =
-    useVueFlow()
+  const {
+    fitView,
+    onInit,
+    addNodes,
+    addEdges,
+    findNode,
+    onNodesInitialized,
+    updateNodeData,
+    getSelectedNodes,
+  } = useVueFlow()
+  const route = useRoute()
 
   const nodes = ref<Node[]>([])
   const edges = ref<Edge[]>([])
@@ -75,6 +85,16 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
   nodes.value = convertedData.nodes
   edges.value = convertedData.edges
 
+  const currentNode = computed(() => {
+    if (typeof route.params.id !== 'string') return
+    return findNode(route.params.id)
+  })
+
+  const editNodeFields = ref(undefined)
+  watch(currentNode, () => {
+    editNodeFields.value = JSON.parse(JSON.stringify(currentNode.value.data))
+  })
+
   onInit(() => {
     fitView()
   })
@@ -86,5 +106,9 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
     addNodes,
     addEdges,
     findNode,
+    updateNodeData,
+    getSelectedNodes,
+    currentNode,
+    editNodeFields,
   }
 })
