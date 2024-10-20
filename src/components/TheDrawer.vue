@@ -40,18 +40,19 @@ const createNode = () => {
 
 <template>
   <DialogRoot>
-    <DialogTrigger
-      class="text-grass11 hover:bg-mauve3 dark:focus:shadow-green8 fixed bottom-6 right-1/2 inline-flex h-[35px] items-center justify-center rounded-md border bg-white px-[15px] font-semibold leading-none shadow-sm focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none"
-    >
-      Create New Node
-    </DialogTrigger>
     <DialogPortal>
-      <DialogOverlay class="fixed inset-0 z-30 bg-black opacity-50" />
+      <DialogOverlay class="fixed inset-0 z-30" />
       <DialogContent
-        class="data-[state=open]:animate-contentShow fixed left-[50%] top-[50%] z-[100] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none"
+        class="fixed right-0 top-0 z-50 h-full w-2/5 min-w-72 bg-white p-8 shadow-lg"
+        @interact-outside="
+          event => {
+            const target = event.target as HTMLElement
+            return event.preventDefault()
+          }
+        "
       >
-        <DialogTitle class="text-mauve12 m-0 mb-8 text-[17px] font-semibold">
-          Create New Node
+        <DialogTitle class="m-0 mb-8 text-[17px] font-semibold">
+          Edit Node
         </DialogTitle>
         <fieldset class="mb-[15px] flex items-center gap-5">
           <label class="text-grass11 w-[90px] text-right text-sm" for="title">
