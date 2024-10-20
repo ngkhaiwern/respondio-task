@@ -9,6 +9,12 @@ import {
 } from 'reka-ui'
 import { useRouter } from 'vue-router'
 import SendMessage from './SendMessage.vue'
+import AddComment from './AddComment.vue'
+import BusinessHours from './BusinessHours.vue'
+
+import { useAutoReplyBotStore } from '@/stores/autoReplyBot'
+
+const { currentNode } = useAutoReplyBotStore()
 
 const router = useRouter()
 
@@ -40,7 +46,14 @@ function closeDrawer() {
         <DialogTitle class="m-0 mb-8 text-[17px] font-semibold">
           Edit Node
         </DialogTitle>
-        <SendMessage />
+        <SendMessage v-if="currentNode?.data.type === 'sendMessage'" />
+        <AddComment v-if="currentNode?.data.type === 'addComment'" />
+        <BusinessHours
+          v-if="
+            currentNode?.data.type === 'dateTime' &&
+            currentNode?.data.data.action === 'businessHours'
+          "
+        />
         <div class="mt-[25px] flex justify-end">
           <DialogClose as-child>
             <button
