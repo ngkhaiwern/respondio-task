@@ -24,6 +24,7 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
         position: { x: 250, y: 50 },
         data: {
           label: 'initial',
+          ...node,
         },
       }))
     nodes.push(currNodes[0])
@@ -47,6 +48,7 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
               },
               data: {
                 label: childNode.name,
+                ...childNode,
               },
             }
           })
