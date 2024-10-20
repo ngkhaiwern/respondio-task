@@ -1,13 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import AutoReplyBotView from '../views/AutoReplyBotView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
+      name: 'auto-reply-bot',
+      component: AutoReplyBotView,
+    },
+    {
+      path: '/:param',
+      name: 'auto-reply-bot-with-drawer',
+      component: AutoReplyBotView,
     },
     // {
     //   path: '/about',
