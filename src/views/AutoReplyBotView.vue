@@ -12,9 +12,6 @@ const isEditingNode = computed(() => {
 </script>
 
 <template>
-  <RouterLink :to="{ name: 'auto-reply-bot-with-drawer', params: { id: '1' } }">
-    <button>goto id 1</button>
-  </RouterLink>
   <div class="h-screen w-screen">
     <TheCanvas />
   </div>
