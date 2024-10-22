@@ -7,16 +7,34 @@ import {
   DialogRoot,
   DialogTitle,
 } from 'reka-ui'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import SendMessage from './SendMessage.vue'
 import AddComment from './AddComment.vue'
 import BusinessHours from './BusinessHours.vue'
 
 import { useAutoReplyBotStore } from '@/stores/autoReplyBot'
+import { computed, watch } from 'vue'
 
-const { currentNode } = useAutoReplyBotStore()
+const { findNode } = useAutoReplyBotStore()
 
 const router = useRouter()
+const route = useRoute()
+
+const currentNode = computed(() => {
+  if (typeof route.params.id !== 'string') return
+  return findNode(route.params.id)
+})
+
+watch(currentNode, () => {
+  if (
+    currentNode.value?.data.type === 'sendMessage' ||
+    currentNode.value?.data.type === 'addComment' ||
+    currentNode.value?.data.type === 'dateTime'
+  ) {
+    return
+  }
+  closeDrawer()
+})
 
 function closeDrawer() {
   router.push({

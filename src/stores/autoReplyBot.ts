@@ -94,7 +94,9 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
 
   const editNodeFields = ref(undefined)
   watch(currentNode, () => {
-    editNodeFields.value = JSON.parse(JSON.stringify(currentNode.value.data))
+    if (currentNode.value) {
+      editNodeFields.value = JSON.parse(JSON.stringify(currentNode.value.data))
+    }
   })
 
   onInit(() => {
