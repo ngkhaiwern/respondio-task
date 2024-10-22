@@ -15,6 +15,7 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
     onNodesInitialized,
     updateNodeData,
     getSelectedNodes,
+    removeNodes,
   } = useVueFlow()
   const route = useRoute()
 
@@ -116,5 +117,6 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
     getSelectedNodes,
     currentNode,
     fieldsForEditing,
+    removeNodes,
   }
 })

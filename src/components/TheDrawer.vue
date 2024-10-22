@@ -18,7 +18,7 @@ import { computed, watch } from 'vue'
 const autoReplyBotStore = useAutoReplyBotStore()
 
 const { fieldsForEditing } = storeToRefs(autoReplyBotStore)
-const { findNode, updateNodeData } = autoReplyBotStore
+const { findNode, updateNodeData, removeNodes } = autoReplyBotStore
 
 const router = useRouter()
 const route = useRoute()
@@ -47,6 +47,11 @@ function closeDrawer() {
 
 function saveChanges() {
   updateNodeData(fieldsForEditing.value.id, fieldsForEditing.value)
+  closeDrawer()
+}
+
+function deleteNode() {
+  removeNodes(fieldsForEditing.value.id)
   closeDrawer()
 }
 </script>
@@ -87,6 +92,16 @@ function saveChanges() {
               class="inline-flex h-[35px] items-center justify-center rounded-lg px-[15px] text-sm font-semibold leading-none focus:shadow-[0_0_0_2px] focus:outline-none disabled:text-gray-400"
             >
               Save
+            </button>
+          </DialogClose>
+        </div>
+        <div class="mt-[25px] flex">
+          <DialogClose as-child>
+            <button
+              @click="deleteNode"
+              class="inline-flex h-[35px] items-center justify-center rounded-lg px-[15px] text-sm font-semibold leading-none focus:shadow-[0_0_0_2px] focus:outline-none disabled:text-gray-400 bg-red-500"
+            >
+              Delete
             </button>
           </DialogClose>
         </div>
