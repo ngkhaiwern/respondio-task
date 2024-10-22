@@ -22,13 +22,85 @@ const isSubmitAllowed = computed(() => {
 const { addNodes } = useAutoReplyBotStore()
 
 const createNode = () => {
+  const id = Date.now().toString()
+  let data
+  if (nodeType.value === 'sendMessage') {
+    data = {
+      name: title.value,
+      type: 'sendMessage',
+      id,
+      data: {
+        payload: [
+          {
+            type: 'text',
+            text: '',
+          },
+        ],
+      },
+    }
+  } else if (nodeType.value === 'addComment') {
+    data = {
+      name: title.value,
+      type: 'addComment',
+      id,
+      data: {
+        comment: '',
+      },
+    }
+  } else if (nodeType.value === 'businessHours') {
+    data = {
+      name: title.value,
+      type: 'dateTime',
+      id,
+      data: {
+        times: [
+          {
+            startTime: '00:00',
+            endTime: '00:00',
+            day: 'mon',
+          },
+          {
+            startTime: '00:00',
+            endTime: '00:00',
+            day: 'tue',
+          },
+          {
+            startTime: '00:00',
+            endTime: '00:00',
+            day: 'wed',
+          },
+          {
+            startTime: '00:00',
+            endTime: '00:00',
+            day: 'thu',
+          },
+          {
+            startTime: '00:00',
+            endTime: '00:00',
+            day: 'fri',
+          },
+          {
+            startTime: '00:00',
+            endTime: '00:00',
+            day: 'sat',
+          },
+          {
+            startTime: '00:00',
+            endTime: '00:00',
+            day: 'sun',
+          },
+        ],
+        timezone: 'UTC',
+        action: 'businessHours',
+      },
+    }
+  }
   addNodes([
     {
-      id: Date.now().toString(),
+      id,
       position: { x: 500, y: 100 },
-      data: {
-        label: 'initial',
-      },
+      type: 'custom',
+      data,
     },
   ])
   title.value = ''

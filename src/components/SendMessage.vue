@@ -8,11 +8,11 @@ const { fieldsForEditing } = storeToRefs(autoReplyBotStore)
 
 function handleAddMore() {
   if (addMoreType.value === 'text') {
-    fieldsForEditing.data.payload.push({
+    fieldsForEditing.value.data.payload.push({
       type: addMoreType.value,
     })
   } else {
-    fieldsForEditing.data.payload.push({
+    fieldsForEditing.value.data.payload.push({
       type: addMoreType.value,
       attachment:
         'https://fastly.picsum.photos/id/396/536/354.jpg?hmac=GmUosOuXb6nGkFhmTE-83i0ciQcaleMyvIyqzeFbW58',
@@ -23,7 +23,8 @@ function handleAddMore() {
 function handleFileUpload(event: Event, index: number) {
   const file = (event.target as HTMLInputElement).files[0]
   if (file) {
-    fieldsForEditing.data.payload[index].attachment = URL.createObjectURL(file)
+    fieldsForEditing.value.data.payload[index].attachment =
+      URL.createObjectURL(file)
   }
 }
 
