@@ -31,7 +31,9 @@ const props = defineProps<NodeProps<CustomData>>()
       <p class="text-xs">Icon</p>
       <p class="text-xs font-medium">{{ props.data.name }}</p>
     </div>
-    <p class="text-xs pt-2">{{ props.data.description }}</p>
+    <p class="text-xs pt-2 line-clamp-2 text-ellipsis">
+      {{ props.data.description }}
+    </p>
     <Handle type="source" :position="Position.Bottom" />
   </div>
 </template>

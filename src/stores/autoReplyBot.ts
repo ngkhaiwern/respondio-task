@@ -50,13 +50,13 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
             if (array.length === 1) {
               positionX = currNode.position.x
             } else {
-              positionX = 150 + 200 * index
+              positionX = 100 + 300 * index
             }
             return {
               id: childNode.id.toString(),
               position: {
                 x: positionX,
-                y: currNode.position.y + 100,
+                y: currNode.position.y + 150,
               },
               type: 'custom',
               data: {
