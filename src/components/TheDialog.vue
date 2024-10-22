@@ -27,6 +27,7 @@ const createNode = () => {
   if (nodeType.value === 'sendMessage') {
     data = {
       name: title.value,
+      description: description.value,
       type: 'sendMessage',
       id,
       data: {
@@ -41,6 +42,7 @@ const createNode = () => {
   } else if (nodeType.value === 'addComment') {
     data = {
       name: title.value,
+      description: description.value,
       type: 'addComment',
       id,
       data: {
@@ -50,6 +52,7 @@ const createNode = () => {
   } else if (nodeType.value === 'businessHours') {
     data = {
       name: title.value,
+      description: description.value,
       type: 'dateTime',
       id,
       data: {
