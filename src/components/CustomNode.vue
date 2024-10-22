@@ -3,6 +3,7 @@ import type { NodeProps } from '@vue-flow/core'
 import { Position, Handle } from '@vue-flow/core'
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { Icon } from '@iconify/vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -33,6 +34,20 @@ type CustomData = {
 }
 // props were passed from the slot using `v-bind="customNodeProps"`
 const props = defineProps<NodeProps<CustomData>>()
+
+const iconType = computed(() => {
+  if (props.data.type === 'dateTime') {
+    return 'mage:calendar'
+  } else if (props.data.type === 'trigger') {
+    return 'mage:electricity'
+  } else if (props.data.type === 'sendMessage') {
+    return 'iconamoon:send'
+  } else if (props.data.type === 'addComment') {
+    return 'mage:message-dots'
+  } else {
+    return 'mage:preview-circle'
+  }
+})
 </script>
 
 <template>
@@ -43,7 +58,8 @@ const props = defineProps<NodeProps<CustomData>>()
   >
     <Handle type="target" :position="Position.Top" />
     <div class="flex gap-2">
-      <p class="text-xs">Icon</p>
+      <Icon :icon="iconType" />
+      <!-- <Icon icon="mdi-light:circle" /> -->
       <p class="text-xs font-medium">{{ props.data.name }}</p>
     </div>
     <p class="text-xs pt-2 line-clamp-2 text-ellipsis">
