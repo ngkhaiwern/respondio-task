@@ -1,10 +1,19 @@
 <script setup lang="ts">
 import type { NodeProps } from '@vue-flow/core'
 import { Position, Handle } from '@vue-flow/core'
+import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
+
+const isCurrentNode = computed(() => {
+  if (route.params.id === props.data.id) {
+    return true
+  } else {
+    return false
+  }
+})
 
 function handleClick() {
   if (route.params.id === props.data.id) {
@@ -28,6 +37,7 @@ const props = defineProps<NodeProps<CustomData>>()
 
 <template>
   <div
+    :class="{ 'ring-2': isCurrentNode }"
     class="w-44 min-h-14 rounded-lg shadow-lg bg-stone-200 p-2"
     @click="handleClick"
   >
