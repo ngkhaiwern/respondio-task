@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import type { NodeProps } from '@vue-flow/core'
 import { Position, Handle } from '@vue-flow/core'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 
 function handleClick() {
-  router.push(`/${props.data.id}`)
+  if (route.params.id === props.data.id) {
+    router.push('/')
+  } else {
+    router.push(`/${props.data.id}`)
+  }
 }
 
 type CustomData = {
