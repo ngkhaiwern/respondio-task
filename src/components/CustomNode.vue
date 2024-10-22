@@ -5,6 +5,17 @@ import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { Icon } from '@iconify/vue'
 
+type CustomData = {
+  name: string
+  id: string
+  parentId: string
+  type?: string
+  description?: string
+  data?: object
+}
+
+const props = defineProps<NodeProps<CustomData>>()
+
 const router = useRouter()
 const route = useRoute()
 
@@ -23,17 +34,6 @@ function handleClick() {
     router.push(`/${props.data.id}`)
   }
 }
-
-type CustomData = {
-  name: string
-  id: string
-  parentId: string
-  type?: string
-  description?: string
-  data?: object
-}
-// props were passed from the slot using `v-bind="customNodeProps"`
-const props = defineProps<NodeProps<CustomData>>()
 
 const iconType = computed(() => {
   if (props.data.type === 'dateTime') {
