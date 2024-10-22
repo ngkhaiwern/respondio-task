@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { useAutoReplyBotStore } from '@/stores/autoReplyBot'
+import { storeToRefs } from 'pinia'
 
-const { editNodeFields: fieldsForEditing } = useAutoReplyBotStore()
+const autoReplyBotStore = useAutoReplyBotStore()
+const { fieldsForEditing } = storeToRefs(autoReplyBotStore)
 </script>
 
 <template>

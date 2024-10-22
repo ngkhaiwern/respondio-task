@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useAutoReplyBotStore } from '@/stores/autoReplyBot'
 
-const { editNodeFields: fieldsForEditing } = useAutoReplyBotStore()
+const autoReplyBotStore = useAutoReplyBotStore()
+const { fieldsForEditing } = storeToRefs(autoReplyBotStore)
 
 function handleAddMore() {
   if (addMoreType.value === 'text') {

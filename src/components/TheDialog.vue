@@ -22,7 +22,6 @@ const isSubmitAllowed = computed(() => {
 const { addNodes } = useAutoReplyBotStore()
 
 const createNode = () => {
-  console.log('create node')
   addNodes([
     {
       id: Date.now().toString(),

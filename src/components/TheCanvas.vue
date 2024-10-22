@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import TheButton from '@/components/TheButton.vue'
 import TheDialog from '@/components/TheDialog.vue'
 import { VueFlow } from '@vue-flow/core'
 import { useAutoReplyBotStore } from '@/stores/autoReplyBot'
 import CustomNode from '@/components/CustomNode.vue'
+import { storeToRefs } from 'pinia'
 
-const { nodes, edges } = useAutoReplyBotStore()
+const autoReplyBotStore = useAutoReplyBotStore()
+const { nodes, edges } = storeToRefs(autoReplyBotStore)
 </script>
 
 <template>

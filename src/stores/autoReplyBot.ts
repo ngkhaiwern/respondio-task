@@ -92,10 +92,12 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
     return findNode(route.params.id)
   })
 
-  const editNodeFields = ref(undefined)
+  const fieldsForEditing = ref(undefined)
   watch(currentNode, () => {
     if (currentNode.value) {
-      editNodeFields.value = JSON.parse(JSON.stringify(currentNode.value.data))
+      fieldsForEditing.value = JSON.parse(
+        JSON.stringify(currentNode.value.data),
+      )
     }
   })
 
@@ -113,6 +115,6 @@ export const useAutoReplyBotStore = defineStore('autoReplyBot', () => {
     updateNodeData,
     getSelectedNodes,
     currentNode,
-    editNodeFields,
+    fieldsForEditing,
   }
 })

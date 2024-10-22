@@ -11,11 +11,14 @@ import { useRoute, useRouter } from 'vue-router'
 import SendMessage from './SendMessage.vue'
 import AddComment from './AddComment.vue'
 import BusinessHours from './BusinessHours.vue'
-
+import { storeToRefs } from 'pinia'
 import { useAutoReplyBotStore } from '@/stores/autoReplyBot'
 import { computed, watch } from 'vue'
 
-const { findNode } = useAutoReplyBotStore()
+const autoReplyBotStore = useAutoReplyBotStore()
+
+const { fieldsForEditing } = storeToRefs(autoReplyBotStore)
+const { findNode, updateNodeData } = autoReplyBotStore
 
 const router = useRouter()
 const route = useRoute()
@@ -40,6 +43,11 @@ function closeDrawer() {
   router.push({
     path: '/',
   })
+}
+
+function saveChanges() {
+  updateNodeData(fieldsForEditing.value.id, fieldsForEditing.value)
+  closeDrawer()
 }
 </script>
 
@@ -75,10 +83,10 @@ function closeDrawer() {
         <div class="mt-[25px] flex justify-end">
           <DialogClose as-child>
             <button
-              @click="closeDrawer"
+              @click="saveChanges"
               class="inline-flex h-[35px] items-center justify-center rounded-lg px-[15px] text-sm font-semibold leading-none focus:shadow-[0_0_0_2px] focus:outline-none disabled:text-gray-400"
             >
-              Complete
+              Save
             </button>
           </DialogClose>
         </div>
